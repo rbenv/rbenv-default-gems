@@ -17,12 +17,15 @@ rbenv-default-gems automatically installs the gems listed in the
 version of Ruby with `rbenv install`.
 
 Specify gems in `~/.rbenv/default-gems` by name, one per line. You may
-optionally specify a version string after the name, or `--pre` to
-install a prerelease version. For example:
+optionally specify a version string after the name, `--pre` to
+install a prerelease version, or a specific operating system to install the gem on. For example:
 
     bundler
     bcat ~>0.6
     rails --pre
+    rb-fsevent osx
+    rb-inotify linux
+    rb-notifu windows
 
 Blank lines and lines beginning with a `#` are ignored.
 
