@@ -22,14 +22,22 @@ install_default_gems() {
 
       gem_name="${line[0]}"
       gem_version="${line[1]}"
-
+      gem_no_document="${line[2]}"
+      arguments=""
+      
       if [ "$gem_version" == "--pre" ]; then
-        args=( --pre )
+        arguments=" --pre "
+      elif [ "$gem_version" == "--no-document" ]; then
+        arguments=" --no-document "
       elif [ -n "$gem_version" ]; then
-        args=( --version "$gem_version" )
-      else
-        args=()
+        arguments=" --version '$gem_version' "
       fi
+      
+      if [ "$gem_no_document" == "--no-document" ]; then
+        arguments="$arguments --no-document "
+      fi
+      
+      args=( ${arguments} )
 
       # Invoke `gem install` in the just-installed Ruby. Point its
       # stdin to /dev/null or else it'll read from our default-gems
