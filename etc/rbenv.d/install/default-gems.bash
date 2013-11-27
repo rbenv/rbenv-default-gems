@@ -23,7 +23,7 @@ install_default_gems() {
       gem_name="${line[0]}"
       gem_version="${line[1]}"
       gem_no_document="${line[2]}"
-      gem_install="install"
+      gem_install="install $gem_name"
       
       arguments=""
       if [ "$gem_name" == "specific_install" ]; then
@@ -48,7 +48,7 @@ install_default_gems() {
       # Invoke `gem install` in the just-installed Ruby. Point its
       # stdin to /dev/null or else it'll read from our default-gems
       # file.
-      RBENV_VERSION="$VERSION_NAME" rbenv-exec gem "$gem_install" "$gem_name" "${args[@]}" < /dev/null || {
+      RBENV_VERSION="$VERSION_NAME" rbenv-exec gem "$gem_install" "${args[@]}" < /dev/null || {
         echo "rbenv: error installing gem \`$gem_name'"
       } >&2
 
