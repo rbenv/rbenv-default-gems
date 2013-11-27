@@ -23,18 +23,22 @@ install_default_gems() {
       gem_name="${line[0]}"
       gem_version="${line[1]}"
       gem_no_document="${line[2]}"
+      
       arguments=""
+      if [ "$gem_name" == "specific_install" && -n "$gem_version" ]; then
+        arguments="specific_install $gem_version"
+      else
+        if [ "$gem_version" == "--pre" ]; then
+          arguments=" --pre "
+        elif [ "$gem_version" == "--no-document" ]; then
+          arguments=" --no-document "
+        elif [ -n "$gem_version" ]; then
+          arguments=" --version '$gem_version' "
+        fi
       
-      if [ "$gem_version" == "--pre" ]; then
-        arguments=" --pre "
-      elif [ "$gem_version" == "--no-document" ]; then
-        arguments=" --no-document "
-      elif [ -n "$gem_version" ]; then
-        arguments=" --version '$gem_version' "
-      fi
-      
-      if [ "$gem_no_document" == "--no-document" ]; then
-        arguments="$arguments --no-document "
+        if [ "$gem_no_document" == "--no-document" ]; then
+          arguments="$arguments --no-document "
+        fi
       fi
       
       args=( ${arguments} )
