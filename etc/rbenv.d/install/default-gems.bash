@@ -25,7 +25,7 @@ install_default_gems() {
       gem_no_document="${line[2]}"
       
       arguments=""
-      if [ "$gem_name" == "specific_install" && -n "$gem_version" ]; then
+      if [ "$gem_name" == "specific_install" ]; then
         arguments="specific_install $gem_version"
       else
         if [ "$gem_version" == "--pre" ]; then
