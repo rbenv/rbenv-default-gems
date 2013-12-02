@@ -24,9 +24,15 @@ install_default_gems() {
       gem_version="${line[1]}"
       gem_no_document="${line[2]}"
       gem_install="install"
-      
+
+      if [[ "$VERSION_NAME" =~ "1.9.3" ]] ; then
+        nodocs="--no-ri --no-rdoc"
+      else
+        nodocs="--no-document"
+      fi
+
       arguments=""
-      if [ "$gem_name" == "specific_install" ]; then
+      if [ "$gem_name" == "specific_install" -a "$gem_version" != "--no-document" ]; then
         gem_install="specific_install"
         gem_name=""
         arguments="$gem_version"
@@ -34,13 +40,13 @@ install_default_gems() {
         if [ "$gem_version" == "--pre" ]; then
           arguments=" --pre "
         elif [ "$gem_version" == "--no-document" ]; then
-          arguments=" --no-document "
+          arguments=" $nodocs "
         elif [ -n "$gem_version" ]; then
           arguments=" --version '$gem_version' "
         fi
       
         if [ "$gem_no_document" == "--no-document" ]; then
-          arguments="$arguments --no-document "
+          arguments="$arguments $nodocs "
         fi
       fi
       
