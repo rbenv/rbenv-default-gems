@@ -8,15 +8,15 @@ Ruby.
 
 Make sure you have the latest rbenv and ruby-build versions, then run:
 
-    git clone https://github.com/sstephenson/rbenv-default-gems.git ~/.rbenv/plugins/rbenv-default-gems
+    git clone https://github.com/sstephenson/rbenv-default-gems.git $(rbenv root)/plugins/rbenv-default-gems
 
 ## Usage
 
 rbenv-default-gems automatically installs the gems listed in the
-`~/.rbenv/default-gems` file every time you successfully install a new
+`$(rbenv root)/default-gems` file every time you successfully install a new
 version of Ruby with `rbenv install`.
 
-Specify gems in `~/.rbenv/default-gems` by name, one per line. You may
+Specify gems in `$(rbenv root)/default-gems` by name, one per line. You may
 optionally specify a version string after the name, or `--pre` to
 install a prerelease version. For example:
 
