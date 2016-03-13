@@ -8,7 +8,7 @@ Ruby.
 
 Make sure you have the latest rbenv and ruby-build versions, then run:
 
-    git clone https://github.com/sstephenson/rbenv-default-gems.git $(rbenv root)/plugins/rbenv-default-gems
+    git clone https://github.com/rbenv/rbenv-default-gems.git $(rbenv root)/plugins/rbenv-default-gems
 
 ## Usage
 
