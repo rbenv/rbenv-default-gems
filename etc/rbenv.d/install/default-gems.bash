@@ -1,8 +1,36 @@
 if declare -Ff after_install >/dev/null; then
+  after_install add_default_sources
   after_install install_default_gems
 else
   echo "rbenv: rbenv-default-gems plugin requires ruby-build 20130129 or later" >&2
 fi
+
+add_default_sources() {
+  # Only setup default gem sources after successfully installing Ruby.
+  [ "$STATUS" = "0" ] || return 0
+
+  if [ -f "${RBENV_ROOT}/default-sources" ]; then
+    local source
+
+    # Read sources from $RBENV_ROOT/default-sources.
+    while IFS=" " read -r -a source; do
+
+      # Skip empty lines.
+      [ "${#source[@]}" -gt 0 ] || continue
+
+      # Skip comment lines that begin with `#`.
+      [ "${source[0]:0:1}" != "#" ] || continue
+
+      # Invoke `gem source add` in the just-installed Ruby. Point its
+      # stdin to /dev/null or else it'll read from our default-sources
+      # file.
+      RBENV_VERSION="$VERSION_NAME" rbenv-exec gem sources -a "$source" < /dev/null || {
+        echo "rbenv: error adding source \`$source'"
+      } >&2
+
+    done < "${RBENV_ROOT}/default-sources"
+  fi
+}
 
 install_default_gems() {
   # Only install default gems after successfully installing Ruby.

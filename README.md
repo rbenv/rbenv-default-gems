@@ -26,6 +26,12 @@ install a prerelease version. For example:
 
 Blank lines and lines beginning with a `#` are ignored.
 
+### Sources
+
+If you have default gems you'd like to get from a private or alternate Gem server, you
+can list the URLs for additional sources in `~/.rbenv/default-sources` and they will
+be added before any gems are installed.
+
 ## License
 
 (The MIT License)
